@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="毎月のExcel作業をラクにする、無料の小さなWebツール集。ファイルはブラウザの中だけで処理され、どこにも送信されません。">
+<title>Excel時短の小箱</title>
+<style>
+:root{
+  --bg:#f6f5f1;--card:#ffffff;--ink:#1f2328;--muted:#5f6670;--line:#dcd9d0;
+  --accent:#1f6f5c;--accent-ink:#ffffff;--accent-soft:#e3f1ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16181b;--card:#202327;--ink:#e8e6e1;--muted:#a3a8ae;--line:#363a40;
+    --accent:#4fb39a;--accent-ink:#0f1a17;--accent-soft:#1d3530;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  line-height:1.8;font-size:16px}
+.wrap{max-width:920px;margin:0 auto;padding:32px 16px 48px}
+.brand{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.12em}
+h1{font-size:2.1rem;margin:6px 0 8px;letter-spacing:.02em}
+.lead{font-size:1.08rem;margin:0 0 12px}
+.private{display:inline-flex;align-items:center;gap:6px;font-size:.92rem;color:var(--accent);font-weight:600}
+.private::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent)}
+h2{font-size:1.25rem;margin:36px 0 12px}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.tools{grid-template-columns:1fr}}
+.tool{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;
+  text-decoration:none;color:inherit;transition:.15s}
+a.tool:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tool .icon{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.tool h3{margin:0 0 4px;font-size:1.2rem}
+.tool .what{font-weight:600;margin:0 0 6px}
+.tool p{margin:0}
+.tool .go{margin-top:auto;padding-top:14px;color:var(--accent);font-weight:700}
+.tool.soon{border-style:dashed;background:transparent}
+.tool.soon .icon{background:var(--line);color:var(--muted)}
+.muted{color:var(--muted);font-size:.93rem}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:640px){.points{grid-template-columns:1fr}}
+.point{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.point b{display:block;margin-bottom:2px}
+.about{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.about p{margin:0}
+footer{margin-top:32px;font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">TAKimprove</div>
+  <h1>Excel時短の小箱</h1>
+  <p class="lead">毎月くり返すExcelの手作業を、ブラウザだけで片づける無料の小さなツール集です。インストールも登録もいりません。</p>
+  <div class="private">ファイルはブラウザの中だけで処理され、どこにも送信されません</div>
+
+  <h2>ツール</h2>
+  <div class="tools">
+    <a class="tool" href="https://takimprove.github.io/excel-matome/">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><path d="M6.5 10v4h11v-4M12 14v4"/><rect x="8" y="18" width="8" height="3" rx="1"/></svg></div>
+      <h3>Excelまとめ箱</h3>
+      <p class="what">バラバラのファイルを1つにまとめる</p>
+      <p class="muted">店舗別・月別などに分かれたExcelやCSVを、列名で揃えて1つの表につなぎます。列の順番が違っていても大丈夫です。</p>
+      <span class="go">使ってみる →</span>
+    </a>
+    <a class="tool" href="https://takimprove.github.io/excel-mikurabe/">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/><path d="M5.5 9h2M5.5 13h2M16.5 9h2M16.5 13h2"/></svg></div>
+      <h3>Excel見比べ箱</h3>
+      <p class="what">先月と今月で変わったところを探す</p>
+      <p class="muted">2つのファイルを見比べて、増えた行・消えた行・値が変わったセルを一覧にします。結果はExcelで保存できます。</p>
+      <span class="go">使ってみる →</span>
+    </a>
+    <div class="tool soon">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+      <h3>次の小箱を準備中</h3>
+      <p class="muted">「毎月この作業が面倒」という声をもとに、少しずつ増やしていきます。</p>
+    </div>
+  </div>
+
+  <h2>この小箱について</h2>
+  <div class="points">
+    <div class="point"><b>送信しない</b><span class="muted">ファイルはお使いのパソコンのブラウザの中だけで処理します。社内データでも安心です。</span></div>
+    <div class="point"><b>入れるだけ</b><span class="muted">ドラッグして、ボタンを押すだけ。関数やマクロの知識はいりません。</span></div>
+    <div class="point"><b>元のファイルはそのまま</b><span class="muted">結果は新しいExcelとして保存します。元のファイルは書き換えません。</span></div>
+  </div>
+
+  <h2>つくっている人</h2>
+  <div class="about">
+    <p>TAKimproveとして、会社員のかたわら、毎月の事務作業をちょっとラクにする道具をつくっています。</p>
+  </div>
+
+  <footer>
+    <p>各ツールは無料・無保証です。大切なファイルは元のファイルを残したうえでお使いください。</p>
+    <p>© TAKimprove</p>
+  </footer>
+</div>
+</body>
+</html>
