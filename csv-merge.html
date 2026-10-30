@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="複数のCSVファイルを1つに結合する方法を3つ紹介します。Excelで開くと文字化けする原因（Shift_JISとUTF-8）と直し方、Power Queryでのフォルダー結合、無料ツールでの結合まで、手順つきで解説。">
+<title>複数のCSVを1つに結合する方法と、文字化けの直し方｜Excel時短の小箱</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"複数のCSVを1つに結合する方法と、文字化けの直し方","datePublished":"2026-10-30","dateModified":"2026-10-30","author":{"@type":"Organization","name":"TAKimprove"},"publisher":{"@type":"Organization","name":"TAKimprove"},"mainEntityOfPage":"https://takimprove.github.io/csv-merge.html"}</script>
+<style>
+:root{
+  --bg:#f6f5f1;--card:#ffffff;--ink:#1f2328;--muted:#5f6670;--line:#dcd9d0;
+  --accent:#1f6f5c;--accent-ink:#ffffff;--accent-soft:#e3f1ec;--warn:#fff6e0;--warn-ink:#7a5000;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16181b;--card:#202327;--ink:#e8e6e1;--muted:#a3a8ae;--line:#363a40;
+    --accent:#4fb39a;--accent-ink:#0f1a17;--accent-soft:#1d3530;--warn:#3a3016;--warn-ink:#f0cf7a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  line-height:1.9;font-size:16px}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 56px}
+.crumb{font-size:.85rem;color:var(--muted)}
+.crumb a,article a{color:var(--accent)}
+h1{font-size:1.75rem;line-height:1.45;margin:14px 0 6px;text-wrap:balance}
+.meta{font-size:.85rem;color:var(--muted);margin:0 0 16px}
+.lead{font-size:1.05rem}
+.answer{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:16px 0}
+.answer b{color:var(--accent)}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;margin:20px 0}
+.toc ol{margin:6px 0 0;padding-left:1.4em}
+h2{font-size:1.32rem;line-height:1.5;margin:44px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+h3{font-size:1.1rem;margin:28px 0 8px}
+p{margin:0 0 14px}
+ol.steps{padding-left:1.4em}
+ol.steps li{margin:0 0 8px}
+.menu{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:0 6px;font-size:.92em;white-space:nowrap}
+code,pre{font-family:ui-monospace,"Consolas","Menlo",monospace;font-size:.9em}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto}
+.mojibake{font-family:ui-monospace,"Consolas",monospace;background:var(--warn);color:var(--warn-ink);border-radius:6px;padding:0 6px}
+.caution{background:var(--warn);color:var(--warn-ink);border-radius:10px;padding:10px 14px;margin:12px 0}
+.tablebox{overflow-x:auto;margin:8px 0 16px}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.tool-box{background:var(--accent-soft);border-radius:14px;padding:16px 18px;margin:16px 0}
+.tool-box .btn{display:inline-block;margin-top:6px;background:var(--accent);color:var(--accent-ink);font-weight:700;border-radius:10px;padding:8px 16px;text-decoration:none}
+.faq dt{font-weight:700;margin-top:14px}
+.faq dd{margin:4px 0 0 0}
+footer{margin-top:44px;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--accent)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="crumb"><a href="https://takimprove.github.io/">Excel時短の小箱</a> ＞ 記事 ＞ CSVの結合と文字化け</div>
+<article>
+  <h1>複数のCSVを1つに結合する方法と、文字化けの直し方</h1>
+  <p class="meta">2026年10月30日　TAKimprove</p>
+  <p class="lead">毎月のシステム出力や、店舗・部署ごとに届くCSVを1つにまとめたいのに、Excelで開くと「売上」が<span class="mojibake">螢ｲ荳</span>のように化けてしまう。この記事では、その原因と、CSVを結合する3つの方法を手順つきで紹介します。</p>
+
+  <div class="answer"><b>結論：</b>文字化けの原因は、ほとんどの場合<b>ファイルの文字コード（Shift_JISかUTF-8か）</b>とExcelの読み方が合っていないことです。結合するなら、①数が少なければExcelの「テキストまたはCSVから」、②毎月決まったフォルダーをまとめるならPower Query、③インストールなしですぐ済ませたいならブラウザの無料ツール、が向いています。</div>
+
+  <nav class="toc" aria-label="目次"><b>目次</b>
+    <ol>
+      <li><a href="#why">CSVが文字化けする原因</a></li>
+      <li><a href="#fix">文字化けしたCSVを正しく開く方法</a></li>
+      <li><a href="#methods">複数のCSVを結合する3つの方法</a></li>
+      <li><a href="#compare">どの方法を選べばいいか</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">CSVが文字化けする原因</h2>
+  <p>CSVは、文字をどんな決まりでデータにしたか（<b>文字コード</b>）をファイルの中に持っていないことが多い形式です。日本でよく使われる文字コードは次の2つです。</p>
+  <div class="tablebox"><table>
+    <tr><th>文字コード</th><th>よく出てくる場面</th></tr>
+    <tr><td>Shift_JIS（エスジス）</td><td>古くからの業務システム、Excelで「CSV（コンマ区切り）」として保存したファイル</td></tr>
+    <tr><td>UTF-8（ユーティーエフエイト）</td><td>Webサービスやクラウドの管理画面からダウンロードしたファイル、Excelで「CSV UTF-8」として保存したファイル</td></tr>
+  </table></div>
+  <p>日本語版のExcelでCSVをダブルクリックすると、多くの場合Shift_JISとして読もうとします。そのため、<b>UTF-8で作られたCSV</b>をそのまま開くと、日本語が意味のない記号の並びに化けてしまいます。逆に、ファイルの先頭に「BOM」という目印が付いたUTF-8なら、Excelは正しく読めます。</p>
+  <p>つまり、ファイルが壊れているわけではありません。<b>読み方を指定し直せば、ほとんどの場合は元に戻ります。</b>文字化けした状態で上書き保存すると本当に壊れてしまうので、保存せずに閉じてください。</p>
+
+  <h2 id="fix">文字化けしたCSVを正しく開く方法</h2>
+  <p>ダブルクリックではなく、Excelの取り込み機能から開くと、文字コードを選べます。Microsoft 365やExcel 2016以降（Windows版）での手順です。</p>
+  <ol class="steps">
+    <li>Excelで空のブックを開き、<span class="menu">データ</span>タブの<span class="menu">テキストまたはCSVから</span>を押す</li>
+    <li>文字化けしていたCSVファイルを選んで<span class="menu">インポート</span>を押す</li>
+    <li>表示された画面の<span class="menu">元のファイル</span>で、<b>「65001: Unicode (UTF-8)」</b>か<b>「932: 日本語 (シフト JIS)」</b>を選ぶ。プレビューの日本語が正しく読める方が正解です</li>
+    <li><span class="menu">読み込み</span>を押す</li>
+  </ol>
+  <p>メモ帳でCSVを開き、<span class="menu">名前を付けて保存</span>で文字コードを「UTF-8 (BOM 付き)」にして保存し直す方法もあります。ただし、元のファイルは別に残しておきましょう。</p>
+
+  <h2 id="methods">複数のCSVを結合する3つの方法</h2>
+
+  <h3>方法1：1つずつ開いてコピーする（ファイルが数個なら）</h3>
+  <p>上の手順で1つ目のCSVを読み込み、2つ目以降も同じ手順で読み込んで、データ部分を1つ目の下に貼り付けます。数個なら十分ですが、貼り忘れや、2つ目以降の見出し行まで貼ってしまうミスが起きやすいので、最後に行数の合計を確かめてください。</p>
+
+  <h3>方法2：Power Queryで「フォルダーから」まとめて結合する（毎月同じ作業なら）</h3>
+  <p>Excelに標準で入っているPower Queryを使うと、フォルダーに入れたCSVをまとめて1つの表にできます。来月は同じフォルダーにファイルを入れ替えて「すべて更新」を押すだけになるので、<b>毎月くり返す作業</b>に向いています。</p>
+  <ol class="steps">
+    <li>結合したいCSVを1つのフォルダーにまとめて入れる（関係ないファイルは入れない）</li>
+    <li><span class="menu">データ</span>タブ →<span class="menu">データの取得</span>→<span class="menu">ファイルから</span>→<span class="menu">フォルダーから</span>を選び、そのフォルダーを指定する</li>
+    <li>ファイル一覧が表示されたら、<span class="menu">結合</span>→<span class="menu">データの結合と読み込み</span>を選ぶ</li>
+    <li>次の画面の<span class="menu">ファイルの元の形式</span>で文字コード（UTF-8かシフト JIS）を選び、<span class="menu">OK</span>を押す</li>
+  </ol>
+  <p>結合した表には、どのファイルから来た行かを示す列（Source.Name）も付きます。</p>
+  <div class="caution">注意：Power Queryは、すべてのファイルが<b>同じ文字コード・同じ列の並び</b>である前提で結合します。ファイルによって文字コードが違ったり、列の名前が少しずつ違ったりすると、一部が文字化けしたり、空欄の列ができたりします。</div>
+
+  <h3>方法3：ブラウザの無料ツールで結合する（すぐ済ませたいなら）</h3>
+  <p>インストールや設定をせずに済ませたい場合は、ブラウザで使える無料ツール<b>「Excelまとめ箱」</b>が使えます。この記事を書いているTAKimproveが作ったツールです。</p>
+  <ol class="steps">
+    <li><a href="https://takimprove.github.io/excel-matome/">Excelまとめ箱</a>を開く</li>
+    <li>結合したいCSVやExcelファイルを、まとめてドラッグする</li>
+    <li>ファイルごとの行数と列を確かめて、<span class="menu">まとめたExcelを保存</span>を押す</li>
+  </ol>
+  <p>方法2で注意した点に強いのが特長です。</p>
+  <ul>
+    <li><b>文字コードを自動で判別</b>するので、Shift_JISとUTF-8のCSVが混ざっていても文字化けしません</li>
+    <li>列の順番がファイルごとに違っていても、<b>見出しの名前で揃えて</b>つなぎます。名前が違う列があれば、画面で知らせます</li>
+    <li>CSVとExcelファイル（.xlsx / .xls）を混ぜてまとめられます</li>
+    <li>保存したファイルに各ファイルの行数の一覧が付くので、<b>取り込み漏れ</b>を確かめられます</li>
+  </ul>
+  <p>ファイルはお使いのパソコンのブラウザの中だけで処理され、インターネット上には送信されません。</p>
+  <div class="tool-box">
+    <b>Excelまとめ箱（無料・登録不要）</b><br>
+    複数のExcel・CSVを、列名で揃えて1つにまとめます。<br>
+    <a class="btn" href="https://takimprove.github.io/excel-matome/">まとめ箱を使ってみる</a>
+  </div>
+
+  <h2 id="compare">どの方法を選べばいいか</h2>
+  <div class="tablebox"><table>
+    <tr><th></th><th>方法1 手作業</th><th>方法2 Power Query</th><th>方法3 まとめ箱</th></tr>
+    <tr><td>向いている場面</td><td>2〜3個を一度だけ</td><td>毎月同じフォルダーをまとめる</td><td>今すぐ、設定なしで</td></tr>
+    <tr><td>文字コードが混在</td><td>1つずつ指定すれば可</td><td>苦手</td><td>自動で判別</td></tr>
+    <tr><td>列の順番が違う</td><td>手で並べ替え</td><td>列名が同じなら可</td><td>列名で自動で揃える</td></tr>
+    <tr><td>来月の手間</td><td>毎回同じ</td><td>「すべて更新」だけ</td><td>毎回ドラッグする</td></tr>
+  </table></div>
+  <p>まずはまとめ箱で結合してみて、毎月の決まった作業になったらPower Queryで仕組みにする、という使い分けもおすすめです。</p>
+
+  <h2 id="faq">よくある質問</h2>
+  <dl class="faq">
+    <dt>コマンドプロンプトの copy コマンドで結合してもいいですか？</dt>
+    <dd><code>copy *.csv</code> のようにファイルをそのままつなぐ方法もありますが、各ファイルの見出し行が途中に何度も入る、文字コードが混ざると一部だけ文字化けする、といった問題が起きやすく、Excelに慣れていない方にはおすすめしません。</dd>
+    <dt>結合したあと、店舗ごとや担当者ごとに分け直したいときは？</dt>
+    <dd>同じシリーズの<a href="https://takimprove.github.io/excel-wakeru/">Excel分ける箱</a>で、選んだ列の値ごとに別々のファイルやシートに分けられます。</dd>
+    <dt>先月のCSVと今月のCSVで、何が変わったかを知りたいときは？</dt>
+    <dd><a href="https://takimprove.github.io/excel-mikurabe/">Excel見比べ箱</a>で、増えた行・消えた行・値が変わったセルを一覧にできます。</dd>
+    <dt>毎月の結合と集計を、まとめて自動にしたいのですが？</dt>
+    <dd>売上の集計なら、明細を貼るだけで集計表とグラフができる<a href="https://takimprove.booth.pm/items/9068741" target="_blank" rel="noopener">売上レポート自動作成シート</a>があります。結合から集計までを自分の職場用に自動化したい方には、Kindle本<a href="https://www.amazon.co.jp/dp/B0HPKZ1JQJ" target="_blank" rel="noopener">『Python未経験でも大丈夫 毎月のExcel作業をダブルクリックで終わらせる本』</a>で、AIに手伝ってもらいながらPythonで仕組みを作る方法を紹介しています。</dd>
+  </dl>
+</article>
+<footer>
+  <p>関連：<a href="https://takimprove.github.io/case-store.html">使い方の例　店舗管理編</a></p>
+  <p><a href="https://takimprove.github.io/">Excel時短の小箱</a> ／ © TAKimprove</p>
+</footer>
+</div>
+</body>
+</html>
