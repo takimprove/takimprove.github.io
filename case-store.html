@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="複数店舗の売上をExcelで毎月まとめている店舗管理・本部の担当者向けに、各店のファイルの取りまとめ、月次集計とグラフ、店舗ごとの配布までを無料ツールで片づける流れを紹介します。">
+<title>店舗の売上集計をExcelでラクにする方法｜店舗管理の使い方例 - Excel時短の小箱</title>
+<style>
+:root{
+  --bg:#f6f5f1;--card:#ffffff;--ink:#1f2328;--muted:#5f6670;--line:#dcd9d0;
+  --accent:#1f6f5c;--accent-ink:#ffffff;--accent-soft:#e3f1ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16181b;--card:#202327;--ink:#e8e6e1;--muted:#a3a8ae;--line:#363a40;
+    --accent:#4fb39a;--accent-ink:#0f1a17;--accent-soft:#1d3530;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  line-height:1.85;font-size:16px}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 56px}
+.crumb{font-size:.85rem;color:var(--muted)}
+.crumb a{color:var(--accent)}
+.brand{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.12em;margin-top:14px}
+h1{font-size:1.8rem;line-height:1.4;margin:6px 0 10px;text-wrap:balance}
+.lead{font-size:1.05rem;margin:0 0 10px}
+.note{font-size:.88rem;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+h2{font-size:1.3rem;margin:40px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+h3{font-size:1.08rem;margin:0 0 4px}
+p{margin:0 0 12px}
+.pains{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:8px}
+.pains li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px 10px 40px;position:relative}
+.pains li::before{content:"";position:absolute;left:14px;top:18px;width:12px;height:12px;border-radius:3px;border:2px solid var(--muted)}
+.flow{display:grid;gap:14px;counter-reset:s}
+.st{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.num{width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:1.2rem;display:flex;align-items:center;justify-content:center}
+.st .tool{display:inline-block;font-size:.82rem;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:1px 10px;margin-bottom:4px}
+.st p{margin:4px 0 0}
+.st a.go{display:inline-block;margin-top:6px;font-weight:700;color:var(--accent)}
+.tip{background:var(--accent-soft);border-radius:12px;padding:12px 16px;margin:12px 0}
+.tip b{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.95rem;margin:4px 0 12px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.tablebox{overflow-x:auto}
+.cta{display:grid;gap:10px}
+.cta a{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-decoration:none;color:inherit}
+.cta a:hover{border-color:var(--accent)}
+.cta b{color:var(--accent)}
+footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--accent)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="https://takimprove.github.io/">Excel時短の小箱</a> ＞ 使い方の例 ＞ 店舗管理編</div>
+  <div class="brand">使い方の例　店舗管理編</div>
+  <h1>店舗ごとの売上ファイルを、まとめて・集計して・各店に返すまで</h1>
+  <p class="lead">複数の店舗から毎月届く売上のExcelを、本部でまとめて集計し、店舗ごとの明細を各店に返している方向けに、無料ツールを使った流れを紹介します。</p>
+  <p class="note">このページは、ツールの使い方の一例です。特定のお客様の事例ではありません。ファイル名や店舗名は架空の例です。</p>
+
+  <h2>こんな作業をしていませんか</h2>
+  <ul class="pains">
+    <li>月初に、各店舗から届いた売上のExcelを1つずつ開いて、集計用のシートにコピーしている</li>
+    <li>店舗によって列の順番や見出しの名前が少し違っていて、貼り付けるたびに手で直している</li>
+    <li>貼り付けを1つ飛ばして、合計が合わない原因を探すのに時間がかかったことがある</li>
+    <li>全店分の表から、各店舗に返す分だけを切り出して、店舗の数だけファイルを作っている</li>
+    <li>価格表や商品一覧が先月から何か変わったか、目で見比べて確認している</li>
+  </ul>
+  <p>どれも「毎月同じ手順」で「間違えると困る」作業です。こういう作業ほど、道具に任せる効果が大きくなります。</p>
+
+  <h2>無料ツールでの流れ</h2>
+  <div class="flow">
+    <div class="st"><div class="num">1</div><div>
+      <span class="tool">Excelまとめ箱</span>
+      <h3>各店舗のファイルを1つにまとめる</h3>
+      <p>届いたExcelやCSVを、まとめてドラッグするだけで1つの表につなぎます。列の順番が店舗ごとに違っていても、見出しの名前で揃えます。どのファイルから来た行かがわかる「元ファイル」の列も付けられます。</p>
+      <p>保存されるファイルには、各ファイルの行数を記録した「ファイル一覧」シートが入るので、<b>取り込み漏れがないか</b>を行数の合計で確かめられます。</p>
+      <a class="go" href="https://takimprove.github.io/excel-matome/">Excelまとめ箱を使ってみる →</a>
+    </div></div>
+    <div class="st"><div class="num">2</div><div>
+      <span class="tool">売上レポート自動作成シート（有料テンプレート）</span>
+      <h3>月別・店舗別・商品別に集計してグラフにする</h3>
+      <p>まとめた明細を貼り付けると、月別×店舗別の売上表、商品ランキング、3つのグラフが自動でできあがります。明細の合計とレポートの合計が合っているか、登録していない店舗名がないかも自動でチェックします。</p>
+      <p>ピボットテーブルやマクロを使わないので、ほかの人に引き継ぐときも説明がかんたんです。</p>
+      <a class="go" href="https://takimprove.booth.pm/items/9068741" target="_blank" rel="noopener">テンプレートの詳細を見る（BOOTH・800円）→</a>
+    </div></div>
+    <div class="st"><div class="num">3</div><div>
+      <span class="tool">Excel分ける箱</span>
+      <h3>店舗ごとの明細を切り出して、各店に返す</h3>
+      <p>全店分の表を入れて「店舗」の列を選ぶと、店舗ごとに別々のExcelファイルにしてZIPで保存します。「売上_10月_金沢店.xlsx」のような名前で並ぶので、そのまま各店に送れます。</p>
+      <p>分けたあとの行数の合計が元の表と一致しているかも表示されるので、<b>送り漏れの心配がありません</b>。</p>
+      <a class="go" href="https://takimprove.github.io/excel-wakeru/">Excel分ける箱を使ってみる →</a>
+    </div></div>
+    <div class="st"><div class="num">4</div><div>
+      <span class="tool">Excel見比べ箱</span>
+      <h3>価格表や商品一覧の変更を確かめる</h3>
+      <p>先月と今月の価格表や商品一覧を入れると、増えた商品・消えた商品・値段が変わったセルを一覧にします。商品コードのような「1行ごとに違う列」を選ぶだけです。</p>
+      <a class="go" href="https://takimprove.github.io/excel-mikurabe/">Excel見比べ箱を使ってみる →</a>
+    </div></div>
+  </div>
+
+  <div class="tip"><b>会社のデータでも使えるか心配な方へ：</b>無料ツールは、ファイルをお使いのパソコンのブラウザの中だけで処理します。インターネット上のどこにもファイルを送信しません。ネットにつながらない環境で使いたい場合は、<a href="https://takimprove.booth.pm/items/9034892" target="_blank" rel="noopener">オフライン版</a>もあります。</div>
+
+  <h2>うまく使うためのコツ</h2>
+  <div class="tablebox"><table>
+    <tr><th>よくあるつまずき</th><th>対策</th></tr>
+    <tr><td>店舗によって見出しの名前が違う（「店舗」と「店名」など）</td><td>まとめ箱は見出しの名前で揃えるので、名前が違うと別の列になります。各店に配る元のフォーマットの見出しを統一しておくと、毎月の手間がなくなります。</td></tr>
+    <tr><td>店舗名の表記がゆれる（「金沢店」と「金沢 店」など）</td><td>分ける箱では別のグループとして分かれ、売上レポートでは「設定にない店舗」として知らせます。分ける前の一覧で、グループの数が店舗の数と合っているかを確かめてください。</td></tr>
+    <tr><td>CSVを開くと文字化けする</td><td>3つのツールはどれも、Shift_JISのCSVも文字化けせずに読み込めます。Excelで開いて保存し直す必要はありません。</td></tr>
+  </table></div>
+
+  <h2>関連する商品</h2>
+  <div class="cta">
+    <a href="https://takimprove.booth.pm/items/9068741" target="_blank" rel="noopener"><b>売上レポート自動作成シート</b>　明細を貼るだけで月別・店舗別・商品別の集計とグラフ（Excelテンプレート・マクロなし）</a>
+    <a href="https://www.amazon.co.jp/dp/B0HPKZ1JQJ" target="_blank" rel="noopener"><b>Kindle本『Python未経験でも大丈夫 毎月のExcel作業をダブルクリックで終わらせる本』</b>　この流れを自分の職場用に自動化したい方へ</a>
+  </div>
+
+  <footer>
+    <p>各ツールは無料・無保証です。大切なファイルは元のファイルを残したうえでお使いください。</p>
+    <p><a href="https://takimprove.github.io/">Excel時短の小箱</a> ／ © TAKimprove</p>
+  </footer>
+</div>
+</body>
+</html>
