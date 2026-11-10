@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="毎月のExcel作業をラクにする、無料の小さなWebツール集。ファイルはブラウザの中だけで処理され、どこにも送信されません。">
-<title>Excel時短の小箱</title>
+<meta name="description" content="届いたExcelをまとめる、先月と今月の違いを探す、店舗ごとに切り分ける。毎月のコピペ作業を、ファイルを入れるだけで終わらせる無料ツール集です。インストール不要、ファイルはどこにも送信されません。">
+<title>Excel時短の小箱｜Excelの結合・比較・分割を無料で（インストール不要）</title>
 <style>
 :root{
   --bg:#f6f5f1;--card:#ffffff;--ink:#1f2328;--muted:#5f6670;--line:#dcd9d0;
@@ -49,42 +49,58 @@ a.tool:hover{border-color:var(--accent);transform:translateY(-2px)}
 .about p{margin:0}
 footer{margin-top:32px;font-size:.85rem;color:var(--muted)}
 .offline{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:14px;padding:12px 16px;border-radius:12px;border:1px solid var(--line, #dcd9d0);background:var(--card, #fff);font-size:.93rem}.offline a{font-weight:700;color:var(--accent, #1f6f5c)}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px;padding:0;list-style:none}
+.badges li{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:.92rem;border-radius:999px;padding:4px 12px}
+.badges li::before{content:"✓"}
+h1{font-size:1.9rem;line-height:1.4;text-wrap:balance}
+.tool .pain{font-weight:700;margin:0 0 6px;color:var(--ink)}
+.tool .ex{margin-top:8px;font-size:.88rem;color:var(--accent);font-weight:600}
+.prods{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.prods{grid-template-columns:1fr}}
+.prod{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit}
+.prod:hover{border-color:var(--accent)}
+.prod span{display:block;font-size:.88rem;color:var(--muted)}
+.prod b{color:var(--accent)}
+.cmp{width:100%;border-collapse:collapse;font-size:.93rem;margin-top:12px;background:var(--card)}
+.cmp th,.cmp td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.cmp th{background:var(--accent-soft)}
+.tablebox{overflow-x:auto}
+.note{font-size:.9rem;color:var(--muted);margin:8px 0 0}
+.note a{color:var(--accent);font-weight:700}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="brand">TAKimprove</div>
-  <h1>Excel時短の小箱</h1>
-  <p class="lead">毎月くり返すExcelの手作業を、ブラウザだけで片づける無料の小さなツール集です。インストールも登録もいりません。</p>
-  <div class="private">ファイルはブラウザの中だけで処理され、どこにも送信されません</div>
-  <div class="offline"><span>ネットにつながらない環境でも使いたい方へ</span><a href="https://takimprove.booth.pm/items/9034892" target="_blank" rel="noopener">オフライン版（3本セット）はこちら →</a></div>
-  <div class="offline"><span>Excel作業を自分で自動化してみたい方へ</span><a href="https://www.amazon.co.jp/dp/B0HPKZ1JQJ" target="_blank" rel="noopener">Kindle本『Python未経験でも大丈夫 毎月のExcel作業をダブルクリックで終わらせる本』→</a></div>
-  <div class="offline"><span>毎月の売上集計をExcelでラクにしたい方へ</span><a href="https://takimprove.booth.pm/items/9068741" target="_blank" rel="noopener">売上レポート自動作成シート（Excelテンプレート）→</a></div>
-  <div class="offline"><span>複数店舗の売上・予算・在庫・日報をまとめて管理したい方へ</span><a href="https://takimprove.booth.pm/items/9077339" target="_blank" rel="noopener">店舗管理セット（Excelテンプレート4本）→</a></div>
-  <div class="offline"><span>毎月の入金確認・未入金チェックをラクにしたい方へ</span><a href="https://takimprove.booth.pm/items/9080136" target="_blank" rel="noopener">入金消込チェックシート（Excelテンプレート）→</a></div>
+  <div class="brand">TAKimprove ／ Excel時短の小箱</div>
+  <h1>毎月のコピペ作業、まだ手でやっていますか？</h1>
+  <p class="lead">店舗や部署から届くExcelをまとめる。先月と今月の一覧を見比べる。全体の表を、送り先ごとに切り分ける。毎月くり返すこの作業を、ファイルを入れるだけで終わらせる無料ツールです。</p>
+  <ul class="badges"><li>無料</li><li>インストール・登録不要</li><li>ファイルを送信しない</li></ul>
 
   <h2>ツール</h2>
   <div class="tools">
     <a class="tool" href="https://takimprove.github.io/excel-matome/">
       <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><path d="M6.5 10v4h11v-4M12 14v4"/><rect x="8" y="18" width="8" height="3" rx="1"/></svg></div>
       <h3>Excelまとめ箱</h3>
-      <p class="what">バラバラのファイルを1つにまとめる</p>
-      <p class="muted">店舗別・月別などに分かれたExcelやCSVを、列名で揃えて1つの表につなぎます。列の順番が違っていても大丈夫です。</p>
-      <span class="go">使ってみる →</span>
+      <p class="pain">届いたファイルを、1つずつ開いてコピーしていませんか？</p>
+      <p class="muted">店舗別・月別などに分かれたExcelやCSVを、ドラッグするだけで1つの表にします。列の順番がファイルごとに違っていても、見出しの名前でそろえます。</p>
+      <p class="ex">例：12か月分のファイル（約4,000行）も、まとめて入れるだけで1つに</p>
+      <span class="go">まとめ箱を使ってみる（無料）→</span>
     </a>
     <a class="tool" href="https://takimprove.github.io/excel-mikurabe/">
       <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/><path d="M5.5 9h2M5.5 13h2M16.5 9h2M16.5 13h2"/></svg></div>
       <h3>Excel見比べ箱</h3>
-      <p class="what">先月と今月で変わったところを探す</p>
-      <p class="muted">2つのファイルを見比べて、増えた行・消えた行・値が変わったセルを一覧にします。結果はExcelで保存できます。</p>
-      <span class="go">使ってみる →</span>
+      <p class="pain">どこが変わったか、目で探していませんか？</p>
+      <p class="muted">先月と今月の一覧を入れるだけで、増えた行・消えた行・値が変わったセルを自動で一覧にします。見落としが怖い価格表や顧客リストの更新チェックに。</p>
+      <p class="ex">結果は「追加・削除・変更」に分けてExcelで保存</p>
+      <span class="go">見比べ箱を使ってみる（無料）→</span>
     </a>
     <a class="tool" href="https://takimprove.github.io/excel-wakeru/">
       <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="5" rx="1"/><path d="M12 8v3M5.5 14v-3h13v3M12 11v3"/><rect x="3" y="14" width="5" height="7" rx="1"/><rect x="9.5" y="14" width="5" height="7" rx="1"/><rect x="16" y="14" width="5" height="7" rx="1"/></svg></div>
       <h3>Excel分ける箱</h3>
-      <p class="what">大きな表を店舗ごと・担当者ごとに分ける</p>
-      <p class="muted">全店分・全員分の表を、選んだ列の値ごとに別々のファイルやシートにします。各所に送る分の切り出しが一度で終わります。</p>
-      <span class="go">使ってみる →</span>
+      <p class="pain">店舗ごと・担当者ごとに、1つずつ切り出していませんか？</p>
+      <p class="muted">全体の表から、店舗・担当者・部署ごとのファイル（またはシート）を一度に作ります。分けたあとの行数の合計が元の表と合っているかも表示するので、送りもれの心配がありません。</p>
+      <p class="ex">「売上_10月_金沢店.xlsx」のような名前でZIPにまとめて保存</p>
+      <span class="go">分ける箱を使ってみる（無料）→</span>
     </a>
     <div class="tool soon">
       <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
@@ -128,6 +144,26 @@ footer{margin-top:32px;font-size:.85rem;color:var(--muted)}
       <span class="go">読んでみる →</span>
     </a>
   </div>
+
+  <h2>もっとラクにしたい方へ</h2>
+  <p class="muted" style="margin:0 0 12px">ツールで「集める・比べる・分ける」が片づいたら、その先の集計やチェックも自動にできます。</p>
+  <div class="prods">
+    <a class="prod" href="https://takimprove.booth.pm/items/9068741" target="_blank" rel="noopener"><span>毎月の売上集計を自動にしたい</span><b>売上レポート自動作成シート →</b><span>明細を貼るだけで月別・店舗別・商品別の集計とABC分析（Excelテンプレート）</span></a>
+    <a class="prod" href="https://takimprove.booth.pm/items/9080136" target="_blank" rel="noopener"><span>入金確認・未入金のチェックをラクにしたい</span><b>入金消込チェックシート →</b><span>請求と入金を突き合わせて、未入金・期日超過・取引先別の残高を一覧に</span></a>
+    <a class="prod" href="https://takimprove.booth.pm/items/9077339" target="_blank" rel="noopener"><span>複数店舗をまとめて管理したい</span><b>店舗管理セット →</b><span>売上・予算実績・棚卸照合・日報集計のExcelテンプレート4本</span></a>
+    <a class="prod" href="https://www.amazon.co.jp/dp/B0HPKZ1JQJ" target="_blank" rel="noopener"><span>自分の職場用に自動化してみたい</span><b>Kindle本『Python未経験でも大丈夫』→</b><span>毎月のExcel作業をダブルクリックで終わらせる仕組みの作り方</span></a>
+  </div>
+
+  <h3 style="margin:24px 0 0;font-size:1.05rem">ネットにつながらないパソコンで使いたい方へ</h3>
+  <div class="tablebox"><table class="cmp">
+    <tr><th></th><th>無料版（このサイト）</th><th>オフライン版（3本セット）</th></tr>
+    <tr><td>使い方</td><td>ブラウザでこのサイトを開く</td><td>ダウンロードしたファイルをダブルクリック</td></tr>
+    <tr><td>ネット接続</td><td>必要</td><td>不要</td></tr>
+    <tr><td>このサイトが開けない社内PC</td><td>使えない</td><td>使える</td></tr>
+    <tr><td>ファイルの送信</td><td>しない</td><td>しない</td></tr>
+    <tr><td>料金</td><td>無料</td><td>有料（買い切り・更新版も無料でダウンロード可）</td></tr>
+  </table></div>
+  <p class="note">ツールの中身は同じです。ネットが使える環境なら、無料版で十分です。<a href="https://takimprove.booth.pm/items/9034892" target="_blank" rel="noopener">オフライン版の詳細を見る →</a></p>
 
   <h2>この小箱について</h2>
   <div class="points">
